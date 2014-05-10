@@ -124,7 +124,7 @@
     .show {
         -webkit-transform: translate3d(0,0,0);
         -moz-transform: translate3d(0,0,0);
-        overflow: hidden;
+        /* overflow: hidden; */ /* This seemed to help with something that I can't remember, but it caused a phantom margin on the right when activated. */
     }
 
     .show .showmenu {
