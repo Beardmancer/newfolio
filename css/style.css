@@ -1,0 +1,220 @@
+/**************************************************
+ * Global styles
+ */
+
+    @viewport, @-ms-viewport {
+        width: extend-to-zoom;
+        zoom: 1.0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body, .content, header, .container {
+        height: 100%;
+        min-height: 100%;
+    }
+
+    .container {
+        margin-top: 0;
+        margin-left: 15em;
+        overflow: auto;
+    }
+
+    .nav-item {
+        background-color: #999;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.5em;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color .25s;
+    }
+
+    .nav-item i {
+        vertical-align: middle;
+        width: 1.5em;
+        height: 1.25em;
+        margin-top: .25em;
+    }
+
+    .nav-item:hover {
+        background: #666;
+        transition: background-color .25s;
+    }
+
+    .content {
+        position: relative;
+    }
+
+    header {
+        position: fixed;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        width: 15em;
+    }
+
+    header ul, header li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    header li{
+        margin-bottom: 7px;
+    }
+
+    header, header a {
+        color: #eee;
+    }
+
+    nav {
+        width: 100%;
+
+    }
+
+    nav ul, nav ul li, nav ul li a {
+        display: inline-block;
+    }
+
+    nav ul {
+        margin: .25em;
+    }
+
+    .slider, .holder {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+    }
+
+    .holder {
+        display: block;
+        position: absolute;
+        z-index: -1;
+        width: 600%;
+        height: 100%;
+    }
+
+    .slide {
+        float: left;
+        min-width: 17%;
+        min-height: 100%;
+    }
+
+
+/**************************************************
+ * 50em and lesser styles
+ */
+
+@media (max-width: 50em) {
+
+    .content {
+        -webkit-transform: translate3d(-15em, 0, 0);
+        -moz-transform: translate3d(-15em, 0, 0);
+        transition: all .25s ease;
+    }
+
+    .show {
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        overflow: hidden;
+    }
+
+    .show .showmenu {
+        background: #333;
+    }
+
+    .container {
+        margin-right: -15em;
+    }
+
+    .site-id > object {
+        width: 100%;
+    }
+
+    header {
+        background: #38525E;
+        transition: all .25s ease;
+    }
+
+    .slider {
+        margin-left: 15em;
+    }
+
+}
+
+
+/**************************************************
+ * 50em and greater styles
+ */
+
+@media (min-width: 50em) {
+
+    .slide {
+        width: 19%;
+    }
+
+    .content {
+        transition: all .25s ease;
+    }
+
+    .showmenu {
+        display: none;
+    }
+
+    .container > * {
+        margin: 2em;
+        width: auto;
+        position: fixed;
+    }
+
+    .site-id > object {
+        width: auto;
+        margin: 2em 0em 2em 2em;
+    }
+
+    header {
+        transition: all .25s ease;
+    }
+
+}
+
+
+/**************************************************
+ * 30-50em styles
+ */
+
+@media (min-width: 30em) and (max-width: 50em) {
+
+
+
+}
+
+
+/**************************************************
+ * 50em and less styles
+ */
+
+@media (max-width:50em) {
+
+
+
+}
+
+
+/**************************************************
+ * 50em and greater styles
+ */
+
+@media (min-width: 50em) {
+
+
+
+}
