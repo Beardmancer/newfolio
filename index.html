@@ -47,8 +47,8 @@
                     </ul>
                 </nav>
             </div>
-            <div class="slider">
-                <div class="holder">
+            <div id="project01" class="slider">
+                <div class="holder" style="width: 600%">
                     <div id="photo-1" class="slide" style="background: transparent url('projects/cd/DSC_5736.jpg') center center no-repeat; background-size: cover;"></div>
                     <div id="photo-2" class="slide" style="background: transparent url('projects/cd/DSC_5737.jpg') center center no-repeat; background-size: cover;"></div>
                     <div id="photo-3" class="slide" style="background: transparent url('projects/cd/DSC_5765.jpg') center center no-repeat; background-size: cover;"></div>
@@ -63,6 +63,8 @@
 
 
         // Beginning Variables
+        var countCurrentProject = 0;
+        var countTotalProjects = 2;
         var countTotal = 4;
         var countCurrent = 0;
 
@@ -83,13 +85,13 @@
             if (countCurrent > 0) {
                 countCurrent--
                 var width = $('.slide').width();
-                $('.holder').animate({ left: "+=" + width }, 500, function() {
+                $('#project01 > .holder').animate({ left: "+=" + width }, 500, function() {
                     // Animation complete.
                 });
             }else{
                 countCurrent = 4;
                 var width = $('.slide').width();
-                $('.holder').animate({ left: -countCurrent*width }, 1000, function() {
+                $('#project01 > .holder').animate({ left: -countCurrent*width }, 1000, function() {
                     // Animation complete.
                 });
             }
@@ -102,13 +104,13 @@
             if (countCurrent < countTotal) {
                 countCurrent++
                 var width = $('.slide').width();
-                $('.holder').transition({ left: "-=" + width }, 500, function() {
+                $('#project01 > .holder').transition({ left: "-=" + width }, 500, function() {
                     // Animation complete.
                 });
             }else{
                 countCurrent = 0;
                 var width = $('.slide').width();
-                $('.holder').transition({ left: 0 }, 1000, function() {
+                $('#project01 > .holder').transition({ left: 0 }, 1000, function() {
                     // Animation complete.
                 });
             }
