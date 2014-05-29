@@ -26,6 +26,35 @@
         <!-- <script src="js/jquery.animate-enhanced.min.js"></script> -->
 
     </head>
+    <script type="text/javascript">
+
+        // Project Constructor
+
+        function Project(id, title, description, softwareUsed, photos){
+
+            this.id = id;
+            this.title = title;
+            this.description = description;
+            this.softwareUsed = softwareUsed;
+            this.photos = photos;
+
+            // Write HTML to document
+
+            document.write("<div id=\"project0"+this.id+"\" class=\"holder-inner\" style=\"width: "+((this.photos.length*100)+((this.photos.length*100)*.2))+"%; left: 0; top: "+(this.id-1)*$('.slide').height()+"px;\">");
+
+                for (i=0; i<this.photos.length; i++){
+
+                    document.write("<div class=\"slide\" style=\"background: transparent url('"+this.photos[i]+"') center center no-repeat; background-size: cover; width: "+((100/this.photos.length)-1)+"%; min-width: "+((100/this.photos.length)-3)+"%;\"></div>");
+
+                };
+
+                document.write("<div class=\"slide\"></div>");
+
+            document.write("</div>");
+
+        }
+
+    </script>
     <body ontouchstart="" onmouseover="">
         <div class="content">
             <header role="banner">
@@ -40,21 +69,79 @@
                     <ul>
                         <li class="showmenu"><a href="#" class="nav-item"><i class="fa fa-bars fa-fw"></i></a></li>
                         <li class="prev"><a href="#" class="nav-item"><i class="fa fa-long-arrow-left fa-fw"></i></a></li>
-                        <li><a href="#" class="nav-item"><i class="fa fa-long-arrow-up fa-fw"></i></a></li>
-                        <li><a href="#" class="nav-item"><i class="fa fa-long-arrow-down fa-fw"></i></a></li>
+                        <li class="up"><a href="#" class="nav-item"><i class="fa fa-long-arrow-up fa-fw"></i></a></li>
+                        <li class="down"><a href="#" class="nav-item"><i class="fa fa-long-arrow-down fa-fw"></i></a></li>
                         <li class="next"><a href="#" class="nav-item"><i class="fa fa-long-arrow-right fa-fw"></i></a></li>
                         <li><a href="#" class="nav-item"><i class="fa fa-info-circle fa-fw"></i></a></li>
                     </ul>
                 </nav>
             </div>
-            <div id="project01" class="slider">
+            <!-- <script type="text/javascript">
+
+                document.write("<div id=\""+project01.id+"\" class=\"slider\">");
+
+                    document.write("<div class=\"holder\" style=\"width: "+(project01.photos.length + 1)+"00%\">");
+
+                        for (i=0; i<project01.photos.length; i++){
+
+                            document.write("<div class=\"slide\" style=\"background: transparent url('"+project01.photos[i]+"') center center no-repeat; background-size: cover;\"></div>");
+
+                        };
+
+                    document.write("</div>");
+
+                document.write("<div class=\"slide filler\"></div>");
+
+            </script> -->
+
+            <!-- <div id="project01" class="slider">
                 <div class="holder" style="width: 600%">
-                    <div id="photo-1" class="slide" style="background: transparent url('projects/cd/DSC_5736.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div id="photo-2" class="slide" style="background: transparent url('projects/cd/DSC_5737.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div id="photo-3" class="slide" style="background: transparent url('projects/cd/DSC_5765.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div id="photo-4" class="slide" style="background: transparent url('projects/cd/DSC_5739.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div id="photo-5" class="slide" style="background: transparent url('projects/cd/DSC_5740.jpg') center center no-repeat; background-size: cover;"></div>
+                    <div class="slide" style="background: transparent url('projects/cd/DSC_5736.jpg') center center no-repeat; background-size: cover;"></div>
+                    <div class="slide" style="background: transparent url('projects/cd/DSC_5737.jpg') center center no-repeat; background-size: cover;"></div>
+                    <div class="slide" style="background: transparent url('projects/cd/DSC_5765.jpg') center center no-repeat; background-size: cover;"></div>
+                    <div class="slide" style="background: transparent url('projects/cd/DSC_5739.jpg') center center no-repeat; background-size: cover;"></div>
+                    <div class="slide" style="background: transparent url('projects/cd/DSC_5740.jpg') center center no-repeat; background-size: cover;"></div>
                     <div id="filler" class="slide"></div>
+                </div>
+            </div> -->
+
+            <div class="slider">
+                <div class="holder">
+                    <script type="text/javascript">
+
+                        // Call Projects
+
+                        var project01 = new Project("1", "Tibor Kalman/System Of A Down CD Packaging", "Packaging for a System Of A Down album in the style of researched designer Tibor Kalman.", ["Adobe Illustrator","Adobe Photoshop"], ["projects/cd/DSC_5736.jpg", "projects/cd/DSC_5737.jpg", "projects/cd/DSC_5765.jpg", "projects/cd/DSC_5739.jpg", "projects/cd/DSC_5740.jpg"]);
+                        var project02 = new Project("2", "Docking Institute Annual Report", "An annual report developed by three designers for The Docking Institute, a survey and research organization.", ["Adobe InDesign"], ["projects/docking/DSC_5029.jpg", "projects/docking/DSC_5030.jpg", "projects/docking/DSC_5035.jpg", "projects/docking/DSC_5043.jpg", "projects/docking/DSC_5047.jpg"]);
+                        var project03 = new Project("3", "Business As Usual, Inc. Book Covers", "Book jackets and packaging for three books that are related not necessarily by author or genre, but rather by conceptual links.", ["Adobe Illustrator", "Adobe Photoshop"], ["projects/books/covers.jpg", "projects/books/backs.jpg", "projects/books/package.jpg"]);
+
+                    </script>
+
+                    <!-- <div id="project01" class="holder-inner" style="width: 600%; top: 0; left: 0;">
+                        <div class="slide" style="background: transparent url('projects/cd/DSC_5736.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/cd/DSC_5737.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/cd/DSC_5765.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/cd/DSC_5739.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/cd/DSC_5740.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide"></div>
+                    </div> -->
+                    <!-- <script type="text/javascript">
+                        document.write("<div id=\"project02\" class=\"holder-inner\" style=\"width: 600%; top: "+$('.slide').height()+"px; left: 0;\">");
+                    </script> -->
+                    <!-- <div id="project02" class="holder-inner" style="width: 600%; top: 500px;">
+                        <div class="slide" style="background: transparent url('projects/docking/DSC_5029.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/docking/DSC_5030.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/docking/DSC_5035.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/docking/DSC_5043.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide" style="background: transparent url('projects/docking/DSC_5047.jpg') center center no-repeat; background-size: cover;"></div>
+                        <div class="slide"></div>
+                    </div> -->
+                    <!-- <script type="text/javascript">
+                        document.write("<div class=\"holder-inner\" style=\"width: 600%; top: "+($('.slide').height())*2+"px; left: 0;\">");
+                    </script> -->
+                    <!-- <div class="holder-inner" style="width: 600%; top: 1000px;">
+                        <div class="slide"></div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -65,14 +152,15 @@
         // Beginning Variables
         var countCurrentProject = 0;
         var countTotalProjects = 2;
-        var countTotal = 4;
         var countCurrent = 0;
+        var countTotal = 4;
 
 
         // Functions
 
 
         // Showmenu Code
+
         $('.showmenu').on('click', function(e){ // When the horizontal bars button is clicked
             $('.content').toggleClass('show');
             e.preventDefault();
@@ -85,13 +173,13 @@
             if (countCurrent > 0) {
                 countCurrent--
                 var width = $('.slide').width();
-                $('#project01 > .holder').animate({ left: "+=" + width }, 500, function() {
+                $('#project01').transition({ left: "+=" + width }, 500, function() {
                     // Animation complete.
                 });
             }else{
                 countCurrent = 4;
                 var width = $('.slide').width();
-                $('#project01 > .holder').animate({ left: -countCurrent*width }, 1000, function() {
+                $('#project01').transition({ left: -countCurrent*width }, 1000, function() {
                     // Animation complete.
                 });
             }
@@ -104,13 +192,51 @@
             if (countCurrent < countTotal) {
                 countCurrent++
                 var width = $('.slide').width();
-                $('#project01 > .holder').transition({ left: "-=" + width }, 500, function() {
+                $('#project01').transition({ left: "-=" + width }, 500, function() {
                     // Animation complete.
                 });
             }else{
                 countCurrent = 0;
                 var width = $('.slide').width();
-                $('#project01 > .holder').transition({ left: 0 }, 1000, function() {
+                $('#project01').transition({ left: 0 }, 1000, function() {
+                    // Animation complete.
+                });
+            }
+        });
+
+
+        // Up Code
+
+        $('.up').on('click', function(e){
+            if (countCurrentProject > 0) {
+                countCurrentProject--
+                var height = $('.slide').height();
+                $('.slider > .holder').transition({ top: "+=" + height }, 500, function() {
+                    // Animation complete.
+                });
+            }else{
+                countCurrentProject = 2;
+                var height = $('.slide').height();
+                $('.slider > .holder').transition({ top: -countCurrentProject*height }, 1000, function() {
+                    // Animation complete.
+                });
+            }
+        });
+
+
+        // Down Code
+
+        $('.down').on('click', function(e){
+            if (countCurrentProject < countTotalProjects) {
+                countCurrentProject++
+                var height = $('.slide').height();
+                $('.slider > .holder').transition({ top: "-=" + height }, 500, function() {
+                    // Animation complete.
+                });
+            }else{
+                countCurrentProject = 0;
+                var height = $('.slide').height();
+                $('.slider > .holder').transition({ top: 0 }, 1000, function() {
                     // Animation complete.
                 });
             }
@@ -118,9 +244,14 @@
 
 
         // Window Resize Code
+
         window.onresize=function(){
             var width = $('.slide').width();
+            var height = $('.slide').height();
             $('.holder').css("left",-countCurrent*width);
+            $('#project02').css("top",height*1);
+            $('#project03').css("top",height*2);
+            $('#project04').css("top",height*3);
         };
 
 
