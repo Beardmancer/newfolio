@@ -30,13 +30,15 @@
 
         // Project Constructor
 
-        function Project(id, title, description, softwareUsed, photos){
+        function Project(id, title, description, tools, year, photos){
 
             this.id = id;
             this.title = title;
             this.description = description;
-            this.softwareUsed = softwareUsed;
+            this.tools = tools;
+            this.year = year;
             this.photos = photos;
+            this.current_photo = 1;
 
             // Write HTML to document
 
@@ -107,13 +109,22 @@
 
             <div class="slider">
                 <div class="holder">
+
+                    <!-- <?php
+
+                    echo '<script type="text/javascript">';
+
+                    // Call Projects
+
+                    include 'aggregator.php';
+
+                    echo '</script>';
+
+                    ?> -->
+
                     <script type="text/javascript">
 
-                        // Call Projects
-
-                        var project01 = new Project("1", "Tibor Kalman/System Of A Down CD Packaging", "Packaging for a System Of A Down album in the style of researched designer Tibor Kalman.", ["Adobe Illustrator","Adobe Photoshop"], ["projects/cd/DSC_5736.jpg", "projects/cd/DSC_5737.jpg", "projects/cd/DSC_5765.jpg", "projects/cd/DSC_5739.jpg", "projects/cd/DSC_5740.jpg"]);
-                        var project02 = new Project("2", "Docking Institute Annual Report", "An annual report developed by three designers for The Docking Institute, a survey and research organization.", ["Adobe InDesign"], ["projects/docking/DSC_5029.jpg", "projects/docking/DSC_5030.jpg", "projects/docking/DSC_5035.jpg", "projects/docking/DSC_5043.jpg", "projects/docking/DSC_5047.jpg"]);
-                        var project03 = new Project("3", "Business As Usual, Inc. Book Covers", "Book jackets and packaging for three books that are related not necessarily by author or genre, but rather by conceptual links.", ["Adobe Illustrator", "Adobe Photoshop"], ["projects/books/covers.jpg", "projects/books/backs.jpg", "projects/books/package.jpg"]);
+                        var projects_all = [<?php include 'aggregator.php'; ?>];
 
                     </script>
 
@@ -150,10 +161,12 @@
 
 
         // Beginning Variables
-        var countCurrentProject = 0;
-        var countTotalProjects = 2;
-        var countCurrent = 0;
-        var countTotal = 4;
+        var countCurrentProject = 1;
+        var countTotalProjects = projects_all.length;
+        var countCurrent = 1;
+        var countTotal = projects_all[0]['photos'].length;
+        var shortTransition = 500;
+        var longTransition = 1000;
 
 
         // Functions
@@ -170,16 +183,18 @@
         // Previous Code
 
         $('.prev').on('click', function(e){
-            if (countCurrent > 0) {
-                countCurrent--
+            if (projects_all[countCurrentProject-1]['current_photo'] > 1) {
+                projects_all[countCurrentProject-1]['current_photo']--
                 var width = $('.slide').width();
-                $('#project01').transition({ left: "+=" + width }, 500, function() {
+                var currentProjectButton = '#project0'+countCurrentProject;
+                $(currentProjectButton).transition({ left: "+=" + width }, shortTransition, function() {
                     // Animation complete.
                 });
             }else{
-                countCurrent = 4;
+                projects_all[countCurrentProject-1]['current_photo'] = projects_all[countCurrentProject-1]['photos'].length;
                 var width = $('.slide').width();
-                $('#project01').transition({ left: -countCurrent*width }, 1000, function() {
+                var currentProjectButton = '#project0'+countCurrentProject;
+                $(currentProjectButton).transition({ left: (-projects_all[countCurrentProject-1]['current_photo']+1)*width }, longTransition, function() {
                     // Animation complete.
                 });
             }
@@ -189,16 +204,18 @@
         // Next Code
 
         $('.next').on('click', function(e){
-            if (countCurrent < countTotal) {
-                countCurrent++
+            if (projects_all[countCurrentProject-1]['current_photo'] < projects_all[countCurrentProject-1]['photos'].length) {
+                projects_all[countCurrentProject-1]['current_photo']++
                 var width = $('.slide').width();
-                $('#project01').transition({ left: "-=" + width }, 500, function() {
+                var currentProjectButton = '#project0'+countCurrentProject;
+                $(currentProjectButton).transition({ left: "-=" + width }, 500, function() {
                     // Animation complete.
                 });
             }else{
-                countCurrent = 0;
+                projects_all[countCurrentProject-1]['current_photo'] = 1;
                 var width = $('.slide').width();
-                $('#project01').transition({ left: 0 }, 1000, function() {
+                var currentProjectButton = '#project0'+countCurrentProject;
+                $(currentProjectButton).transition({ left: 0 }, 1000, function() {
                     // Animation complete.
                 });
             }
@@ -208,16 +225,16 @@
         // Up Code
 
         $('.up').on('click', function(e){
-            if (countCurrentProject > 0) {
+            if (countCurrentProject > 1) {
                 countCurrentProject--
                 var height = $('.slide').height();
-                $('.slider > .holder').transition({ top: "+=" + height }, 500, function() {
+                $('.slider > .holder').transition({ top: "+=" + height }, shortTransition, function() {
                     // Animation complete.
                 });
             }else{
-                countCurrentProject = 2;
+                countCurrentProject = projects_all.length;
                 var height = $('.slide').height();
-                $('.slider > .holder').transition({ top: -countCurrentProject*height }, 1000, function() {
+                $('.slider > .holder').transition({ top: (-countCurrentProject+1)*height }, longTransition, function() {
                     // Animation complete.
                 });
             }
@@ -234,7 +251,7 @@
                     // Animation complete.
                 });
             }else{
-                countCurrentProject = 0;
+                countCurrentProject = 1;
                 var height = $('.slide').height();
                 $('.slider > .holder').transition({ top: 0 }, 1000, function() {
                     // Animation complete.
@@ -248,10 +265,14 @@
         window.onresize=function(){
             var width = $('.slide').width();
             var height = $('.slide').height();
-            $('.holder').css("left",-countCurrent*width);
-            $('#project02').css("top",height*1);
-            $('#project03').css("top",height*2);
-            $('#project04').css("top",height*3);
+            var counterOne = 0;
+            $('.holder').css("top",(-countCurrentProject+1)*height);
+            do {
+                var currentProjectResize = '#project0'+(counterOne+1);
+                $(currentProjectResize).css("left",(-projects_all[counterOne]['current_photo']+1)*width);
+                $(currentProjectResize).css("top",height*counterOne);
+                counterOne++;
+            }while(counterOne < projects_all.length)
         };
 
 

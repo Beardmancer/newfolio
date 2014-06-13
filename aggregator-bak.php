@@ -30,7 +30,7 @@
             $project_count++;
 
             // MAKE A MOTHERFUCKIN' PROJECT!
-            echo "new Project(";  // establish js object
+            echo "var project0".$project_count." = new Project(";  // establish js object
             echo "\"".$project_count."\", ";  // pass project number to constructor function
             echo "\"".$project_data["title"]."\", "; // pass the title
             echo "\"".$project_data["description"]."\", ";  // pass the description
@@ -54,7 +54,7 @@
                 }
                 $i++;
             }
-            echo "]),";
+            echo "]);";
 
         }
     }
