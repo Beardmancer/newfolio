@@ -14,10 +14,15 @@
         <!-- font-awesome stuff -->
         <link rel="stylesheet" href="depend/font-awesome/css/font-awesome.min.css">
 
+        <!-- Typekit stuff -->
+        <script type="text/javascript" src="//use.typekit.net/wvd0uef.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
         <!-- jQuery stuff -->
         <script src="js/jquery-min.js"></script>
         <!-- <script src="js/jquery-1.8.0.min.js"></script> -->
         <!-- <script src="js/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js"></script> -->
+        <!-- <script src="js/jquery.mobile-1.4.2.min.js"></script> note: causes craziness on mobile!-->
 
         <!-- jQuery Transit stuff -->
         <script src="js/jquery.transit.min.js"></script>
@@ -69,58 +74,17 @@
             <div class="container">
                 <nav>
                     <ul>
-                        <li class="showmenu"><a href="#" class="nav-item"><i class="fa fa-bars fa-fw"></i></a></li>
-                        <li class="prev"><a href="#" class="nav-item"><i class="fa fa-long-arrow-left fa-fw"></i></a></li>
-                        <li class="up"><a href="#" class="nav-item"><i class="fa fa-long-arrow-up fa-fw"></i></a></li>
-                        <li class="down"><a href="#" class="nav-item"><i class="fa fa-long-arrow-down fa-fw"></i></a></li>
-                        <li class="next"><a href="#" class="nav-item"><i class="fa fa-long-arrow-right fa-fw"></i></a></li>
-                        <li><a href="#" class="nav-item"><i class="fa fa-info-circle fa-fw"></i></a></li>
+                        <li id="showmenu" class="nav-button showmenu"><a href="#" class="nav-item"><i class="fa fa-bars fa-fw"></i></a></li>
+                        <li id="prev" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-left fa-fw"></i></a></li>
+                        <li id="up" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-up fa-fw"></i></a></li>
+                        <li id="down" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-down fa-fw"></i></a></li>
+                        <li id="next" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-right fa-fw"></i></a></li>
+                        <li id="info" class="nav-button"><span id="info-inner"></span></li>
                     </ul>
                 </nav>
             </div>
-            <!-- <script type="text/javascript">
-
-                document.write("<div id=\""+project01.id+"\" class=\"slider\">");
-
-                    document.write("<div class=\"holder\" style=\"width: "+(project01.photos.length + 1)+"00%\">");
-
-                        for (i=0; i<project01.photos.length; i++){
-
-                            document.write("<div class=\"slide\" style=\"background: transparent url('"+project01.photos[i]+"') center center no-repeat; background-size: cover;\"></div>");
-
-                        };
-
-                    document.write("</div>");
-
-                document.write("<div class=\"slide filler\"></div>");
-
-            </script> -->
-
-            <!-- <div id="project01" class="slider">
-                <div class="holder" style="width: 600%">
-                    <div class="slide" style="background: transparent url('projects/cd/DSC_5736.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div class="slide" style="background: transparent url('projects/cd/DSC_5737.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div class="slide" style="background: transparent url('projects/cd/DSC_5765.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div class="slide" style="background: transparent url('projects/cd/DSC_5739.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div class="slide" style="background: transparent url('projects/cd/DSC_5740.jpg') center center no-repeat; background-size: cover;"></div>
-                    <div id="filler" class="slide"></div>
-                </div>
-            </div> -->
-
             <div class="slider">
                 <div class="holder">
-
-                    <!-- <?php
-
-                    echo '<script type="text/javascript">';
-
-                    // Call Projects
-
-                    include 'aggregator.php';
-
-                    echo '</script>';
-
-                    ?> -->
 
                     <script type="text/javascript">
 
@@ -128,31 +92,6 @@
 
                     </script>
 
-                    <!-- <div id="project01" class="holder-inner" style="width: 600%; top: 0; left: 0;">
-                        <div class="slide" style="background: transparent url('projects/cd/DSC_5736.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/cd/DSC_5737.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/cd/DSC_5765.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/cd/DSC_5739.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/cd/DSC_5740.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide"></div>
-                    </div> -->
-                    <!-- <script type="text/javascript">
-                        document.write("<div id=\"project02\" class=\"holder-inner\" style=\"width: 600%; top: "+$('.slide').height()+"px; left: 0;\">");
-                    </script> -->
-                    <!-- <div id="project02" class="holder-inner" style="width: 600%; top: 500px;">
-                        <div class="slide" style="background: transparent url('projects/docking/DSC_5029.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/docking/DSC_5030.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/docking/DSC_5035.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/docking/DSC_5043.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide" style="background: transparent url('projects/docking/DSC_5047.jpg') center center no-repeat; background-size: cover;"></div>
-                        <div class="slide"></div>
-                    </div> -->
-                    <!-- <script type="text/javascript">
-                        document.write("<div class=\"holder-inner\" style=\"width: 600%; top: "+($('.slide').height())*2+"px; left: 0;\">");
-                    </script> -->
-                    <!-- <div class="holder-inner" style="width: 600%; top: 1000px;">
-                        <div class="slide"></div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -161,28 +100,22 @@
 
 
         // Beginning Variables
+
         var countCurrentProject = 1;
         var countTotalProjects = projects_all.length;
         var countCurrent = 1;
         var countTotal = projects_all[0]['photos'].length;
         var shortTransition = 500;
-        var longTransition = 1000;
+        var longTransition = 800;
 
 
         // Functions
 
+        function populate_info_button() {
+            document.getElementById("info-inner").innerHTML = "<a href=\"#\" class=\"nav-item\"><i class=\"fa fa-info-circle fa-fw\"></i></a>"+projects_all[countCurrentProject-1]['title'];
+        }
 
-        // Showmenu Code
-
-        $('.showmenu').on('click', function(e){ // When the horizontal bars button is clicked
-            $('.content').toggleClass('show');
-            e.preventDefault();
-        });
-
-
-        // Previous Code
-
-        $('.prev').on('click', function(e){
+        function navigate_prev() {
             if (projects_all[countCurrentProject-1]['current_photo'] > 1) {
                 projects_all[countCurrentProject-1]['current_photo']--
                 var width = $('.slide').width();
@@ -198,12 +131,9 @@
                     // Animation complete.
                 });
             }
-        });
+        }
 
-
-        // Next Code
-
-        $('.next').on('click', function(e){
+        function navigate_next() {
             if (projects_all[countCurrentProject-1]['current_photo'] < projects_all[countCurrentProject-1]['photos'].length) {
                 projects_all[countCurrentProject-1]['current_photo']++
                 var width = $('.slide').width();
@@ -219,45 +149,91 @@
                     // Animation complete.
                 });
             }
-        });
+        }
 
-
-        // Up Code
-
-        $('.up').on('click', function(e){
+        function navigate_up() {
             if (countCurrentProject > 1) {
                 countCurrentProject--
                 var height = $('.slide').height();
                 $('.slider > .holder').transition({ top: "+=" + height }, shortTransition, function() {
                     // Animation complete.
                 });
+                populate_info_button();
             }else{
                 countCurrentProject = projects_all.length;
                 var height = $('.slide').height();
                 $('.slider > .holder').transition({ top: (-countCurrentProject+1)*height }, longTransition, function() {
                     // Animation complete.
                 });
+                populate_info_button();
             }
-        });
+        }
 
-
-        // Down Code
-
-        $('.down').on('click', function(e){
+        function navigate_down() {
             if (countCurrentProject < countTotalProjects) {
                 countCurrentProject++
                 var height = $('.slide').height();
                 $('.slider > .holder').transition({ top: "-=" + height }, 500, function() {
                     // Animation complete.
                 });
+                populate_info_button();
             }else{
                 countCurrentProject = 1;
                 var height = $('.slide').height();
                 $('.slider > .holder').transition({ top: 0 }, 1000, function() {
                     // Animation complete.
                 });
+                populate_info_button();
             }
+        }
+
+
+        // Info Button
+
+        $(document).ready(function() {
+            populate_info_button();
         });
+
+
+        // Showmenu Code
+
+        $('#showmenu').on('click', function(e){ // When the horizontal bars button is clicked
+            $('.content').toggleClass('show');
+            e.preventDefault();
+        });
+
+
+        // Button click navigation code
+
+        $('#prev').on('click', navigate_prev);  // previous image
+        $('#next').on('click', navigate_next);  // next image
+        $('#up').on('click', navigate_up);      // back (up) one project
+        $('#down').on('click', navigate_down);  // forward (down) one project
+
+
+        // Keyboard navigation code
+        document.onkeydown = function() {
+            switch (window.event.keyCode) {
+                case 37:
+                case 65:
+                    navigate_prev();  // previous image
+                    break;
+                case 38:
+                case 74:
+                case 87:
+                    navigate_up();    // back (up) one project
+                    break;
+                case 39:
+                case 68:
+                    navigate_next();  // next image
+                    break;
+                case 40:
+                case 75:
+                case 83:
+                    navigate_down();  // forward (down) one project
+                    break;
+            }
+        };
 
 
         // Window Resize Code
