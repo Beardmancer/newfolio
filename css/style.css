@@ -53,7 +53,7 @@
         /*background-color: #999;*/
         /*color: #fff;*/
         font-weight: bold;
-        font-size: 1.5em;
+        font-size: 1.75em;
         text-decoration: none;
         /*cursor: pointer;*/
         /*transition: background-color .25s;*/
@@ -106,12 +106,21 @@
         width: 100%;
     }*/
 
+    nav.top {
+        z-index: 50;
+    }
+
+    nav.bottom {
+        z-index: 1;
+    }
+
     nav ul li {
         margin-right: 2px;
         float: left;
+        color: white;
     }
 
-    nav ul li:last-child {
+    nav.bottom ul li:last-child {
         margin-right: 0;
         float: none;
         overflow: hidden;
@@ -144,10 +153,56 @@
         overflow: hidden;
     }
 
+    .slider, .holder-inner {
+        overflow-y:hidden;
+        overflow-x:hidden;
+    }
+
     .slide {
         float: left;
         min-width: 17%;
         min-height: 100%;
+    }
+
+    .modal {
+        display: none;
+        opacity: 0;
+        /*backface-visibility: hidden;*/
+        -webkit-backface-visibility: hidden;
+        z-index: -1;
+    }
+
+    #info-modal {
+        font-family: "ff-tisa-web-pro";
+    }
+
+    #info-title {
+        font-weight: 700;
+        font-style: normal;
+        font-size: 1.5em;
+        margin-bottom: .75em;
+        clear: both;
+    }
+
+    #info-year {
+        font-weight: 400;
+        font-style: italic;
+        font-size: .75em;
+        margin-bottom: .75em;
+    }
+
+    #info-description {
+        font-weight: 400;
+        font-style: normal;
+        font-size: 1em;
+        line-height: 1.375em;
+        margin-bottom: .75em;
+    }
+
+    #info-tools {
+        font-weight: 400;
+        font-style: bold;
+        font-size: .75em;
     }
 
 
@@ -216,6 +271,14 @@
         position: fixed;  /* fixes a layout bug on iOS iPad */
     }
 
+    .modal {
+        margin: 6.5em 2em 2em 2em;
+        padding: 1em;
+        border-radius: .5em;
+        background-color: rgb(200, 200, 200);
+        background-color: rgba(255, 255, 255, .9);
+    }
+
     /*.container > * {
         margin: 2em;
         width: auto;
@@ -232,7 +295,7 @@
         transition: all .25s ease;
     }
 
-    nav ul li:nth-child(2) {
+    nav.bottom ul li:nth-child(1) {
         border-radius: .5em 0em 0em .5em;
     }
 
@@ -260,7 +323,31 @@
 
 @media (max-width:50em) {
 
+    nav.top ul li {
+        border-radius: .5em;
+        margin:.5em;
+    }
 
+    nav {
+        position: absolute;
+    }
+
+    nav.bottom {
+        width: 100%;
+        /*position: absolute;*/
+        bottom: 0;
+    }
+
+    .modal {
+        height: 100%;
+        padding: 1em;
+        background-color: rgb(200, 200, 200);
+        background-color: rgba(255, 255, 255, .8);
+    }
+
+    #info-title {
+        margin-top: 2.5em;
+    }
 
 }
 
