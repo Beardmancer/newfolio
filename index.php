@@ -14,6 +14,10 @@
         <!-- font-awesome stuff -->
         <link rel="stylesheet" href="depend/font-awesome/css/font-awesome.min.css">
 
+        <!-- Outdated Browser stuff -->
+        <link rel="stylesheet" href="depend/outdatedbrowser/outdatedBrowser.min.css">
+        <script src="depend/outdatedbrowser/outdatedBrowser.min.js"></script>
+
         <!-- Typekit stuff -->
         <script type="text/javascript" src="//use.typekit.net/wvd0uef.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -41,11 +45,21 @@
         <!-- jQuery Movile Events stuff -->
         <script src="js/jquery.mobile-events.min.js"></script>
 
-        <script type="text/javascript">
+        <!-- The script below causes modal scrolling to break on mobile. However, it also stops overscrolling on mobile. -->
+        <!-- <script type="text/javascript">
             document.ontouchmove = function(event){
                 event.preventDefault();
             }
+        </script> -->
+
+        <!-- The script below seems to fix most (though not all) of the overscrolling while maintaining modal scrolling. -->
+        <script type="text/javascript">
+            $('#body').on('touchmove',function(e){
+                if(!$('.modal').has($(e.target)).length)
+                    e.preventDefault();
+            });
         </script>
+
 
     </head>
     <script type="text/javascript">
@@ -91,16 +105,16 @@
             <div class="container">
                 <nav class="top">
                     <ul>
-                        <li id="showmenu" class="nav-button showmenu"><a href="#" class="nav-item"><i class="fa fa-bars fa-fw"></i></a></li>
+                        <li id="showmenu" class="nav-button showmenu"><i class="fa fa-bars fa-fw"></i></li>
                     </ul>
                 </nav>
                 <nav class="bottom">
                     <ul>
-                        <li id="prev" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-left fa-fw"></i></a></li>
-                        <li id="up" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-up fa-fw"></i></a></li>
-                        <li id="down" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-down fa-fw"></i></a></li>
-                        <li id="next" class="nav-button"><a href="#" class="nav-item"><i class="fa fa-long-arrow-right fa-fw"></i></a></li>
-                        <li id="info" class="nav-button"><span id="info-inner"></span></li>
+                        <li id="prev" class="nav-button"><i class="fa fa-long-arrow-left fa-fw"></i></li>
+                        <li id="up" class="nav-button"><i class="fa fa-long-arrow-up fa-fw"></i></li>
+                        <li id="down" class="nav-button"><i class="fa fa-long-arrow-down fa-fw"></i></li>
+                        <li id="next" class="nav-button"><i class="fa fa-long-arrow-right fa-fw"></i></li>
+                        <li id="info" class="nav-button"><span><i class="fa fa-info-circle fa-fw"></i><span id="info-inner"></span></span></li>
                     </ul>
                 </nav>
                 <div id="info-modal" class="modal">
@@ -122,6 +136,11 @@
                 </div>
             </div>
         </div>
+        <div id="outdated">
+             <h6>Your browser is out-of-date!</h6>
+             <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+             <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+        </div>
     </body>
     <script type="text/javascript">
 
@@ -141,7 +160,7 @@
 
         // Populate the "i" Info button on load
         function populate_info_button() {
-            document.getElementById("info-inner").innerHTML = "<a href=\"#\" class=\"nav-item\"><i class=\"fa fa-info-circle fa-fw\"></i></a>"+projects_all[countCurrentProject-1]['title'];
+            document.getElementById("info-inner").innerHTML = projects_all[countCurrentProject-1]['title'];
             document.getElementById("info-title").innerHTML = projects_all[countCurrentProject-1]['title'];
             document.getElementById("info-year").innerHTML = projects_all[countCurrentProject-1]['year'];
             document.getElementById("info-description").innerHTML = projects_all[countCurrentProject-1]['description'];
@@ -151,11 +170,21 @@
         function show_info_modal() {
             if (modalVisible === false) {
                 $('#info-modal').show().transition({ opacity: 1 }, 250);
+                $('.slider').transition({opacity: .2}, 250);
+                $('#prev').toggleClass('nav-button-disabled');
+                $('#up').toggleClass('nav-button-disabled');
+                $('#down').toggleClass('nav-button-disabled');
+                $('#next').toggleClass('nav-button-disabled');
                 modalVisible = true;
             }else {
                 $('#info-modal').transition({ opacity: 0 }, 250, function(){
                     $('#info-modal').hide();
                 });
+                $('.slider').transition({opacity: 1}, 250);
+                $('#prev').toggleClass('nav-button-disabled');
+                $('#up').toggleClass('nav-button-disabled');
+                $('#down').toggleClass('nav-button-disabled');
+                $('#next').toggleClass('nav-button-disabled');
                 modalVisible = false;
             }
         }
@@ -310,6 +339,40 @@
                 counterOne++;
             }while(counterOne < projects_all.length)
         };
+
+
+        // Outdated Browser code
+
+        //PLAIN JAVASCRIPT
+        //event listener form DOM ready
+        function addLoadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            } else {
+                window.onload = function() {
+                    oldonload();
+                    func();
+                }
+            }
+        }
+        //call plugin function after DOM ready
+        addLoadEvent(
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'transform'
+            })
+            );
+
+        //USING jQuery
+        $( document ).ready(function() {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'transform'
+            })
+        })
 
 
     </script>
