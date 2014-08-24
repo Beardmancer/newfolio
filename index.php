@@ -52,26 +52,98 @@
             }
         </script> -->
 
-        <!-- The script below seems to fix most (though not all) of the overscrolling while maintaining modal scrolling. -->
-        <script type="text/javascript">
+        <!-- The script below seems to fix horizontal overscrolling (but not vertical) while maintaining modal scrolling. -->
+        <!-- <script type="text/javascript">
             $('#body').on('touchmove',function(e){
                 if(!$('.modal').has($(e.target)).length)
                     e.preventDefault();
             });
-        </script>
+        </script> -->
 
+        <!-- The script below seems to stop overscrolling fine, but at the cost of modal scrolling. -->
+        <!-- <script type="text/javascript">
+            var selScrollable = '.modal';
+            // Uses document because document will be topmost level in bubbling
+            $(document).on('touchmove',function(e){
+                  e.preventDefault();
+            });
+            // Uses body because jQuery on events are called off of the element they are
+            // added to, so bubbling would not work if we used document instead.
+            $('body').on('touchstart', selScrollable, function(e) {
+                if (e.currentTarget.scrollTop === 0) {
+                    e.currentTarget.scrollTop = 1;
+                } else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
+                    e.currentTarget.scrollTop -= 1;
+                }
+            });
+            $('body').on('touchmove', selScrollable, function(e) {
+                // Only block default if internal div contents are large enough to scroll
+                // Warning: scrollHeight support is not universal. (http://stackoverflow.com/a/15033226/40352)
+                if($(this)[0].scrollHeight > $(this).innerHeight()) {
+                    e.stopPropagation();
+                }
+            });
+        </script> -->
+
+        <!-- The script below seems to fix horizontal overscrolling (but not vertical) while maintaining modal scrolling. -->
+        <!-- <script type="text/javascript">
+            $(document).off('touchmove touchstart touchSwipe');
+            $('body').off('touchmove touchstart touchSwipe', '.modal');
+        </script> -->
+
+        <!-- The script below seems to stop overscrolling fine, but at the cost of modal scrolling. -->
+        <!-- <script type="text/javascript">
+            // Uses document because document will be topmost level in bubbling
+            $(document).on('touchmove',function(e){
+                e.preventDefault();
+            });
+
+            var scrolling = false;
+
+            // Uses body because jquery on events are called off of the element they are
+            // added to, so bubbling would not work if we used document instead.
+            $('body').on('touchstart','.modal',function(e) {
+
+                // Only execute the below code once at a time
+                if (!scrolling) {
+                    scrolling = true;
+                    if (e.currentTarget.scrollTop === 0) {
+                      e.currentTarget.scrollTop = 1;
+                    } else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
+                      e.currentTarget.scrollTop -= 1;
+                    }
+                    scrolling = false;
+                }
+            });
+
+            // Prevents preventDefault from being called on document if it sees a scrollable div
+            $('body').on('touchmove','.modal',function(e) {
+                e.stopPropagation();
+            });
+        </script> -->
+
+        <!-- The script below seems to fix horizontal overscrolling (but not vertical) while maintaining modal scrolling. -->
+        <!-- <script type="text/javascript">
+            document.body.addEventListener('touchmove',function(e){
+                if(!$(e.target).hasClass("modal")) {
+                    e.preventDefault();
+                }
+            });
+        </script> -->
 
     </head>
+
     <script type="text/javascript">
 
         // Project Constructor
 
-        function Project(id, title, description, tools, year, photos){
+        function Project(id, title, description, tools, disciplines, year, photos){
 
             this.id = id;
             this.title = title;
             this.description = description;
             this.tools = tools;
+            this.disciplines = disciplines;
             this.year = year;
             this.photos = photos;
             this.current_photo = 1;
@@ -119,9 +191,16 @@
                 </nav>
                 <div id="info-modal" class="modal">
                     <h1 id="info-title"></h1>
-                    <h3 id="info-year"></h1>
+                    <h3 id="info-year"></h3>
                     <p id="info-description"></p>
-                    <ul id="info-tools"></ul>
+                    <div class="smallishList">
+                        <span class="smallishHeader">TOOLS: </span>
+                        <ul id="info-tools"></ul>
+                    </div>
+                    <div class="smallishList">
+                        <span class="smallishHeader">DISCIPLINES: </span>
+                        <ul id="info-disciplines"></ul>
+                    </div>
                 </div>
             </div>
             <div class="slider">
@@ -141,6 +220,7 @@
              <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
              <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
         </div>
+        <script src="js/overscroll-master/overscroll.min.js"></script>
     </body>
     <script type="text/javascript">
 
@@ -164,6 +244,18 @@
             document.getElementById("info-title").innerHTML = projects_all[countCurrentProject-1]['title'];
             document.getElementById("info-year").innerHTML = projects_all[countCurrentProject-1]['year'];
             document.getElementById("info-description").innerHTML = projects_all[countCurrentProject-1]['description'];
+            var i = 1;
+            document.getElementById("info-tools").innerHTML = "<li>" + projects_all[countCurrentProject-1]['tools'][i-1] + "</li>";
+            do {
+                i++;
+                document.getElementById("info-tools").innerHTML += "<li>" + projects_all[countCurrentProject-1]['tools'][i-1] + "</li>";
+            }while(i < projects_all[countCurrentProject-1]['tools'].length)
+            var i = 1;
+            document.getElementById("info-disciplines").innerHTML = "<li>" + projects_all[countCurrentProject-1]['disciplines'][i-1] + "</li>";
+            do {
+                i++;
+                document.getElementById("info-disciplines").innerHTML += "<li>" + projects_all[countCurrentProject-1]['disciplines'][i-1] + "</li>";
+            }while(i < projects_all[countCurrentProject-1]['disciplines'].length)
         }
 
         // "i" Info Button
@@ -296,25 +388,77 @@
 
 
         // Stuff to do on load
-
         $(document).ready(populate_info_button);
 
 
-        // Showmenu Code
+        // Variable needed for touch/click interoperability
+        // http://stackoverflow.com/questions/7018919/how-to-bind-touchstart-and-click-events-but-not-respond-to-both
+        var flag = false;
 
-        $('#showmenu').on('click', function(e){ // When the horizontal bars button is clicked
-            $('.content').toggleClass('show');
-            e.preventDefault();
+
+        // Showmenu Code
+        $('#showmenu').bind('touchstart click', function(e){ // When the horizontal bars button is clicked
+            if (!flag) {
+                flag = true;
+                setTimeout(function(){ flag = false; }, 100);
+                $('.content').toggleClass('show');
+                e.preventDefault();
+            }
+            return false
         });
 
 
-        // Button click navigation code
+        // Button touch and click navigation code
 
-        $('#prev').on('click', navigate_prev);    // previous image
-        $('#next').on('click', navigate_next);    // next image
-        $('#up').on('click', navigate_up);        // back (up) one project
-        $('#down').on('click', navigate_down);    // forward (down) one project
-        $('#info').on('click', show_info_modal);  // activate project info
+        $('#prev').bind('touchstart click', function(){ // previous image
+            if (!flag) {
+                flag = true;
+                setTimeout(function(){ flag = false; }, 100);
+                navigate_prev();
+            }
+            return false
+        });
+        $('#next').bind('touchstart click', function(){ // next image
+            if (!flag) {
+                flag = true;
+                setTimeout(function(){ flag = false; }, 100);
+                navigate_next();
+            }
+            return false
+        });
+        $('#up').bind('touchstart click', function(){ // back (up) one project
+            if (!flag) {
+                flag = true;
+                setTimeout(function(){ flag = false; }, 100);
+                navigate_up();
+            }
+            return false
+        });
+        $('#down').bind('touchstart click', function(){ // forward (down) one project
+            if (!flag) {
+                flag = true;
+                setTimeout(function(){ flag = false; }, 100);
+                navigate_down();
+            }
+            return false
+        });
+        $('#info').bind('touchstart click', function(){ // activate project info
+            if (!flag) {
+                flag = true;
+                setTimeout(function(){ flag = false; }, 100);
+                show_info_modal();
+            }
+            return false
+        });
+
+
+        // Touch navigation code
+
+        // $('#prev').on('touchstart', navigate_prev);    // previous image
+        // $('#next').on('touchstart', navigate_next);    // next image
+        // $('#up').on('touchstart', navigate_up);        // back (up) one project
+        // $('#down').on('touchstart', navigate_down);    // forward (down) one project
+        // $('#info').on('touchstart', show_info_modal);  // activate project info
 
 
         // Swipe navigation code
@@ -323,6 +467,34 @@
         $('body').on('swipedown', navigate_up);     // back (up) one project
         $('body').on('swipeup', navigate_down);     // forward (down) one project
         $('body').on('swipeleft', navigate_next);   // next image
+
+
+        // Button feedback code
+
+        $('.nav-button').bind('touchstart', function(){ // active touch
+            $(this).addClass('active');
+        }).bind('touchend', function(){
+            $(this).removeClass('active');
+        });
+
+        $('.nav-button').mousedown(function(){ // active click
+            $(this).addClass('active');
+        }).mouseup('touchend', function(){
+            $(this).removeClass('active');
+        });
+
+        $('.nav-button').bind('mouseenter', function(){ // hover
+            $(this).addClass('hover');
+        }).bind('mouseleave', function(){
+            $(this).removeClass('hover');
+        });
+
+        // var nav = document.getElementById('bottom');
+        // var els = nav.getElementsByTagName('li');
+        // for(var i = 0; i < els.length; i++){
+        //     els[i].addEventListener('touchstart', function(){this.className = "hover";}, false);
+        //     els[i].addEventListener('touchend', function(){this.className = "";}, false);
+        // }
 
 
         // Window Resize Code

@@ -45,7 +45,7 @@
         font-style: italic;
         font-size: 1em;
         white-space: nowrap;
-        overflow:hidden;
+        overflow: hidden;
     }
 
     #info-inner {
@@ -73,10 +73,15 @@
         margin-top: .25em;
     }
 
-    .nav-button:hover {
+    li.hover {
         background-color: rgb(100, 100, 100);
         background-color: rgba(100, 100, 100, .95);
-        transition: background-color .25s;
+        transition: background-color .1s;
+    }
+
+    li.active {
+        background-color: rgb(175, 175, 175);
+        background-color: rgba(175, 175, 175, .95);
     }
 
     .content {
@@ -161,8 +166,8 @@
     }
 
     .slider, .holder-inner {
-        overflow-y:hidden;
-        overflow-x:hidden;
+        overflow-y: hidden;
+        overflow-x: hidden;
     }
 
     .slide {
@@ -177,8 +182,14 @@
         /*backface-visibility: hidden;*/
         -webkit-backface-visibility: hidden;
         z-index: -1;
-        overflow-y: scroll; /* an attempt to get the modal to scroll */
         overflow-x: hidden; /* an attempt to remove the horizontal scrollbar */
+        overflow-y: scroll; /* an attempt to get the modal to scroll */
+        -webkit-overflow-scrolling: touch; /* added while trying to fix overscrolling */
+    }
+
+    .modal * {
+        -webkit-transform: translate3d(0,0,0); /* added while trying to fix overscrolling */
+        max-width: 600px;
     }
 
     #info-modal {
@@ -196,7 +207,7 @@
     #info-year {
         font-weight: 400;
         font-style: italic;
-        font-size: .75em;
+        font-size: 1em;
         margin-bottom: .75em;
     }
 
@@ -208,13 +219,33 @@
         margin-bottom: .75em;
     }
 
-    #info-tools {
-        font-weight: 400;
-        font-style: bold;
-        font-size: .75em;
+    .smallishList {
+        margin-top: 1em;
     }
 
-    .nav-button-disabled {
+    .smallishHeader {
+        font-weight:700;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    #info-tools, #info-tools > li, #info-disciplines, #info-disciplines > li {
+        font-weight: 400;
+        font-size: 1em;
+        font-style: italic;
+        display: inline;
+        line-height: 1.375em;
+    }
+
+    #info-tools li:after, #info-disciplines li:after {
+        content: ", ";
+    }
+
+    #info-tools li:last-child:after, #info-disciplines li:last-child:after {
+        content: "";
+    }
+
+    li.nav-button-disabled {
         cursor: not-allowed;
         background-color: rgb(200, 200, 200);
         background-color: rgba(200, 200, 200, .95);
@@ -223,7 +254,7 @@
         transition: background-color .25s;
     }
 
-    .nav-button-disabled:hover {
+    li.nav-button-disabled:hover {
         background-color: rgb(200, 200, 200);
         background-color: rgba(200, 200, 200, .95);
         transition: background-color .25s;
@@ -367,7 +398,7 @@
         margin-top: 2.5em;
     }
 
-    #info-tools {
+    #info-modal > *:last-child {
         margin-bottom: 5em;
     }
 

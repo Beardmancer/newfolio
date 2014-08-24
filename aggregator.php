@@ -44,6 +44,16 @@
                 $i++;
             }
             echo "], ";
+            echo "[";
+            $i = 1;  // set disciplines counter
+            foreach ($project_data["disciplines"] as $discipline) {  // pass each discipline into an array
+                echo "\"".$discipline."\"";
+                if ($i < count($project_data["disciplines"])) {
+                    echo ", ";
+                }
+                $i++;
+            }
+            echo "], ";
             echo "\"".$project_data["year"]."\", ";
             echo "[";
             $i = 1;  // set photos counter
